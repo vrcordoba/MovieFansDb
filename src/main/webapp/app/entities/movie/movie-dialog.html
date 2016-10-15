@@ -1,0 +1,102 @@
+
+<form name="editForm" role="form" novalidate ng-submit="vm.save()" show-validation>
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="vm.clear()">&times;</button>
+        <h4 class="modal-title" id="myMovieLabel" data-translate="movieFansDbApp.movie.home.createOrEditLabel">Create or edit a Movie</h4>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" ng-show="vm.movie.id">
+            <label for="id" data-translate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                    ng-model="vm.movie.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="movieFansDbApp.movie.imdbId" for="field_imdbId">Imdb Id</label>
+            <input type="text" class="form-control" name="imdbId" id="field_imdbId"
+                    ng-model="vm.movie.imdbId"
+                    required />
+            <div ng-show="editForm.imdbId.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.imdbId.$error.required" data-translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="movieFansDbApp.movie.title" for="field_title">Title</label>
+            <input type="text" class="form-control" name="title" id="field_title"
+                    ng-model="vm.movie.title"
+                     />
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="movieFansDbApp.movie.date" for="field_date">Date</label>
+                <div class="input-group">
+                    <input id="field_date" type="text" class="form-control" name="date" uib-datepicker-popup="{{dateformat}}" ng-model="vm.movie.date" is-open="vm.datePickerOpenStatus.date"
+                    />
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="vm.openCalendar('date')"><i class="glyphicon glyphicon-calendar"></i></button>
+                    </span>
+                </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="movieFansDbApp.movie.plot" for="field_plot">Plot</label>
+            <input type="text" class="form-control" name="plot" id="field_plot"
+                    ng-model="vm.movie.plot"
+                     />
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="movieFansDbApp.movie.rating" for="field_rating">Rating</label>
+            <input type="number" class="form-control" name="rating" id="field_rating"
+                    ng-model="vm.movie.rating"
+                    min="0" max="10" />
+            <div ng-show="editForm.rating.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.rating.$error.min" data-translate="entity.validation.min" translate-value-min="0">
+                    This field should be more than 0.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.rating.$error.max" data-translate="entity.validation.max" translate-value-max="10">
+                    This field cannot be more than 10.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.rating.$error.number" data-translate="entity.validation.number">
+                    This field should be a number.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="movieFansDbApp.movie.genre" for="field_genre">Genre</label>
+            <input type="text" class="form-control" name="genre" id="field_genre"
+                    ng-model="vm.movie.genre"
+                     />
+        </div>
+
+        <div class="form-group">
+            <label data-translate="movieFansDbApp.movie.cast" for="field_cast">Cast</label>
+            <select class="form-control" id="field_cast" multiple name="cast" ng-model="vm.movie.casts" ng-options="actor as actor.name for actor in vm.actors track by actor.id"></select>
+        </div>
+        <div class="form-group">
+            <label data-translate="movieFansDbApp.movie.director" for="field_director">Director</label>
+            <select class="form-control" id="field_director" name="director" ng-model="vm.movie.director" ng-options="director as director.name for director in vm.directors track by director.id">
+                <option value=""></option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label data-translate="movieFansDbApp.movie.creator" for="field_creator">Creator</label>
+            <select class="form-control" id="field_creator" name="creator" ng-model="vm.movie.creator" ng-options="user as user. for user in vm.users track by user.id">
+                <option value=""></option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span data-translate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || vm.isSaving" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span data-translate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

@@ -1,0 +1,57 @@
+
+<div>
+    <h2><span data-translate="movieFansDbApp.movie.detail.title">Movie</span> {{vm.movie.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span data-translate="movieFansDbApp.movie.imdbId">Imdb Id</span></dt>
+        <dd>
+            <span>{{vm.movie.imdbId}}</span>
+        </dd>
+        <dt><span data-translate="movieFansDbApp.movie.title">Title</span></dt>
+        <dd>
+            <span>{{vm.movie.title}}</span>
+        </dd>
+        <dt><span data-translate="movieFansDbApp.movie.date">Date</span></dt>
+        <dd>
+            <span>{{vm.movie.date | date:'mediumDate'}}</span>
+        </dd>
+        <dt><span data-translate="movieFansDbApp.movie.plot">Plot</span></dt>
+        <dd>
+            <span>{{vm.movie.plot}}</span>
+        </dd>
+        <dt><span data-translate="movieFansDbApp.movie.rating">Rating</span></dt>
+        <dd>
+            <span>{{vm.movie.rating}}</span>
+        </dd>
+        <dt><span data-translate="movieFansDbApp.movie.genre">Genre</span></dt>
+        <dd>
+            <span>{{vm.movie.genre}}</span>
+        </dd>
+        <dt><span data-translate="movieFansDbApp.movie.cast">Cast</span></dt>
+        <dd>
+            <span ng-repeat="cast in vm.movie.casts">
+                <a ui-sref="actor-detail({id: cast.id})">{{cast.name}}</a>{{$last ? '' : ', '}}
+            </span>
+        </dd>
+        <dt><span data-translate="movieFansDbApp.movie.director">Director</span></dt>
+        <dd>
+            <a ui-sref="director-detail({id:vm.movie.director.id})">{{vm.movie.director.name}}</a>
+        </dd>
+        <dt><span data-translate="movieFansDbApp.movie.creator">Creator</span></dt>
+        <dd>
+            {{vm.movie.creator.undefined}}
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span data-translate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button" ui-sref="movie-detail.edit({id:vm.movie.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-xs hidden-sm" data-translate="entity.action.edit"> Edit</span>
+    </button>
+</div>

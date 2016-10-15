@@ -1,0 +1,64 @@
+<div>
+    <h2 data-translate="movieFansDbApp.actor.home.title">Actors</h2>
+    <jhi-alert></jhi-alert>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-4 no-padding-left">
+                <button class="btn btn-primary" ui-sref="actor.new" >
+                    <span class="glyphicon glyphicon-plus"></span>
+                    <span  data-translate="movieFansDbApp.actor.home.createLabel">
+                        Create new Actor
+                    </span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <br/>
+    <div class="table-responsive">
+        <table class="jh-table table table-striped">
+            <thead>
+                <tr>
+                    <th><span data-translate="global.field.id">ID</span></th>
+                    <th><span data-translate="movieFansDbApp.actor.imdbId">Imdb Id</span></th>
+                    <th><span data-translate="movieFansDbApp.actor.name">Name</span></th>
+                    <th><span data-translate="movieFansDbApp.actor.biography">Biography</span></th>
+                    <th><span data-translate="movieFansDbApp.actor.creator">Creator</span></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="actor in vm.actors track by actor.id">
+                    <td><a ui-sref="actor-detail({id:actor.id})">{{actor.id}}</a></td>
+                    <td>{{actor.imdbId}}</td>
+                    <td>{{actor.name}}</td>
+                    <td>{{actor.biography}}</td>
+                    <td>
+                        {{actor.creator.undefined}}
+                    </td>
+                    <td class="text-right">
+                        <div class="btn-group flex-btn-group-container">
+                            <button type="submit"
+                                    ui-sref="actor-detail({id:actor.id})"
+                                    class="btn btn-info btn-sm">
+                                <span class="glyphicon glyphicon-eye-open"></span>
+                                <span class="hidden-xs hidden-sm" data-translate="entity.action.view"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="actor.edit({id:actor.id})"
+                                    class="btn btn-primary btn-sm">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                                <span class="hidden-xs hidden-sm" data-translate="entity.action.edit"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="actor.delete({id:actor.id})"
+                                    class="btn btn-danger btn-sm">
+                                <span class="glyphicon glyphicon-remove-circle"></span>
+                                <span class="hidden-xs hidden-sm" data-translate="entity.action.delete"></span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

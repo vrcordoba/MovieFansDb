@@ -1,0 +1,40 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipName": "movies",
+            "otherEntityName": "movie",
+            "relationshipType": "many-to-many",
+            "ownerSide": false,
+            "otherEntityRelationshipName": "cast"
+        },
+        {
+            "relationshipName": "creator",
+            "otherEntityName": "user",
+            "relationshipType": "one-to-one",
+            "ownerSide": true
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "imdbId",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "name",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "biography",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20161015155443",
+    "dto": "no",
+    "service": "no",
+    "entityTableName": "actor",
+    "pagination": "no"
+}

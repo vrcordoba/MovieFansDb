@@ -1,0 +1,31 @@
+{
+    "movieFansDbApp": {
+        "movie" : {
+            "home": {
+                "title": "Movies",
+                "createLabel": "Create a new Movie",
+                "createOrEditLabel": "Create or edit a Movie",
+                "search": "Search for Movie"
+            },
+            "created": "A new Movie is created with identifier {{ param }}",
+            "updated": "A Movie is updated with identifier {{ param }}",
+            "deleted": "A Movie is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Movie {{ id }}?"
+            },
+            "detail": {
+                "title": "Movie"
+            },
+            "imdbId": "Imdb Id",
+            "title": "Title",
+            "date": "Date",
+            "plot": "Plot",
+            "rating": "Rating",
+            "genre": "Genre",
+            "cast": "Cast",
+            "director": "Director",
+            "reviews": "Reviews",
+            "creator": "Creator"
+        }
+    }
+}

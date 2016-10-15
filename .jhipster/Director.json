@@ -1,0 +1,39 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipName": "movies",
+            "otherEntityName": "movie",
+            "relationshipType": "one-to-many",
+            "otherEntityRelationshipName": "director"
+        },
+        {
+            "relationshipName": "creator",
+            "otherEntityName": "user",
+            "relationshipType": "one-to-one",
+            "ownerSide": true
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "name",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "biography",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "imdbId",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        }
+    ],
+    "changelogDate": "20161015155312",
+    "dto": "no",
+    "service": "no",
+    "entityTableName": "director",
+    "pagination": "no"
+}

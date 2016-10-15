@@ -1,0 +1,71 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipName": "cast",
+            "otherEntityName": "actor",
+            "relationshipType": "many-to-many",
+            "otherEntityField": "name",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "movies"
+        },
+        {
+            "relationshipName": "director",
+            "otherEntityName": "director",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "name"
+        },
+        {
+            "relationshipName": "reviews",
+            "otherEntityName": "review",
+            "relationshipType": "one-to-many",
+            "otherEntityRelationshipName": "movie"
+        },
+        {
+            "relationshipName": "creator",
+            "otherEntityName": "user",
+            "relationshipType": "one-to-one",
+            "ownerSide": true
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "imdbId",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "title",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "date",
+            "fieldType": "LocalDate"
+        },
+        {
+            "fieldName": "plot",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "rating",
+            "fieldType": "Float",
+            "fieldValidateRules": [
+                "min",
+                "max"
+            ],
+            "fieldValidateRulesMin": 0,
+            "fieldValidateRulesMax": "10"
+        },
+        {
+            "fieldName": "genre",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20161015155735",
+    "dto": "no",
+    "service": "no",
+    "entityTableName": "movie",
+    "pagination": "no"
+}
