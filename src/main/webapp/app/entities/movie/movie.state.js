@@ -121,6 +121,33 @@
                 });
             }]
         })
+        .state('movie.fetchfrominternet', {
+            parent: 'movie',
+            url: '/fetchfrominternet',
+            data: {
+                authorities: ['ROLE_USER']
+            },
+            onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
+                $uibModal.open({
+                    templateUrl: 'app/entities/movie/movie-fetcher-dialog.html',
+                    controller: 'MovieFetcherDialogController',
+                    controllerAs: 'vm',
+                    backdrop: 'static',
+                    size: 'lg',
+                    resolve: {
+                        entity: function () {
+                            return {
+                                title: null
+                            };
+                        }
+                    }
+                }).result.then(function() {
+                    $state.go('movie', null, { reload: 'movie' });
+                }, function() {
+                    $state.go('movie');
+                });
+            }]
+        })
         .state('movie.edit', {
             parent: 'movie',
             url: '/{id}/edit',

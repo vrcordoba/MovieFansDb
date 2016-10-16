@@ -90,6 +90,7 @@
             "cancel": "Cancel",
             "delete": "Delete",
             "edit": "Edit",
+            "fetch": "Fetch",
             "open": "Open",
             "save": "Save",
             "view": "View"
@@ -100,6 +101,9 @@
         },
         "delete": {
             "title": "Confirm delete operation"
+        },
+        "fetcher": {
+            "title": "Fetch Movie from Internet"
         },
         "validation": {
             "required": "This field is required.",

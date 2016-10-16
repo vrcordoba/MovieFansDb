@@ -55,6 +55,22 @@ public class MovieResource {
     }
 
     /**
+     * POST  /movies/fetcher : Create a new movie taking information from Internet.
+     *
+     * @param movieName the name of the movie to create
+     * @return the ResponseEntity with status 201 (Created) and with body the new movie, or with status 404 (Not found) if the movie is not found
+     * @throws URISyntaxException if the Location URI syntax is incorrect
+     */
+    @RequestMapping(value = "/movies/fetcher",
+        method = RequestMethod.POST,
+        produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    public ResponseEntity<Movie> fetchMovie(@Valid @RequestBody String movieName) throws URISyntaxException {
+        log.debug("REST request to fetch Movie : {}", movieName);
+        return new ResponseEntity<Movie>(HttpStatus.NOT_FOUND);
+    }
+
+    /**
      * PUT  /movies : Updates an existing movie.
      *
      * @param movie the movie to update
