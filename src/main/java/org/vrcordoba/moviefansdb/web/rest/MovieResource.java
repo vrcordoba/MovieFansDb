@@ -4,6 +4,7 @@ import com.codahale.metrics.annotation.Timed;
 import org.vrcordoba.moviefansdb.domain.Movie;
 
 import org.vrcordoba.moviefansdb.repository.MovieRepository;
+import org.vrcordoba.moviefansdb.web.rest.clients.MovieFetcher;
 import org.vrcordoba.moviefansdb.web.rest.util.HeaderUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -67,7 +68,14 @@ public class MovieResource {
     @Timed
     public ResponseEntity<Movie> fetchMovie(@Valid @RequestBody String movieName) throws URISyntaxException {
         log.debug("REST request to fetch Movie : {}", movieName);
-        return new ResponseEntity<Movie>(HttpStatus.NOT_FOUND);
+        MovieFetcher movieFetcher = new MovieFetcher(movieName);
+        Optional<Movie> movie = movieFetcher.fetchMovie();
+        if (movie.isPresent()) {
+            Movie result = movieRepository.save(movie.get());
+            return new ResponseEntity<Movie>(result, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<Movie>(HttpStatus.NOT_FOUND);
+        }
     }
 
     /**
