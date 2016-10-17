@@ -28,7 +28,7 @@ public class Review implements Serializable {
     @Column(name = "date")
     private LocalDate date;
 
-    @Column(name = "content", length = 1000)
+    @Column(name = "content", length = 5000)
     private String content;
 
     @ManyToOne

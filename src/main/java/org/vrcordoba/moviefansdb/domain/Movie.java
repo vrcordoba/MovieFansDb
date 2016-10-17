@@ -36,7 +36,7 @@ public class Movie implements Serializable {
     @Column(name = "date")
     private LocalDate date;
 
-    @Column(name = "plot", length = 1000)
+    @Column(name = "plot", length = 5000)
     private String plot;
 
     @DecimalMin(value = "0")

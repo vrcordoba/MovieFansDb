@@ -5,9 +5,9 @@
         .module('movieFansDbApp')
         .controller('MovieFetcherDialogController', MovieFetcherDialogController);
 
-    MovieFetcherDialogController.$inject = ['$uibModalInstance', 'entity', 'Fetcher'];
+    MovieFetcherDialogController.$inject = ['$scope', '$uibModalInstance', 'entity', 'Fetcher'];
 
-    function MovieFetcherDialogController($uibModalInstance, entity, Fetcher) {
+    function MovieFetcherDialogController($scope, $uibModalInstance, entity, Fetcher) {
         var vm = this;
 
         vm.title = entity.title;
@@ -24,7 +24,7 @@
         }
 
         function onFetchSuccess (result) {
-            $scope.$emit('movieFansDbApp:movieFetch', result);
+            $scope.$emit('movieFansDbApp:movieUpdate', result);
             $uibModalInstance.close(result);
             vm.isFetching = false;
         }

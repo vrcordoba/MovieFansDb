@@ -19,4 +19,6 @@ public interface MovieRepository extends JpaRepository<Movie,Long> {
     @Query("select movie from Movie movie left join fetch movie.casts where movie.id =:id")
     Movie findOneWithEagerRelationships(@Param("id") Long id);
 
+    List<Movie> findByImdbId(String imdbId);
+
 }

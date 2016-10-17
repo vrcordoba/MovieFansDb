@@ -81,6 +81,13 @@ public class ImdbIdFetcher {
     }
 
     private Optional<String> fetchId(final ObjectNode data, final String category) {
-      return Optional.of(data.get(imdbQueryType.getLongType() + category).get(0).get("id").asText());
+      try {
+          return Optional.of(data.get(imdbQueryType.getLongType() + category)
+              .get(0)
+              .get("id")
+              .asText());
+      } catch (NullPointerException e) {
+          return Optional.empty();
+      }
     }
 }

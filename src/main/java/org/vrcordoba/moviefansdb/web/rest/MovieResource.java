@@ -56,7 +56,7 @@ public class MovieResource {
     }
 
     /**
-     * POST  /movies/fetcher : Create a new movie taking information from Internet.
+     * POST  /movies/fetcher : Create/Update a movie taking information from Internet.
      *
      * @param movieName the name of the movie to create
      * @return the ResponseEntity with status 201 (Created) and with body the new movie, or with status 404 (Not found) if the movie is not found
@@ -71,11 +71,26 @@ public class MovieResource {
         MovieFetcher movieFetcher = new MovieFetcher(movieName);
         Optional<Movie> movie = movieFetcher.fetchMovie();
         if (movie.isPresent()) {
-            Movie result = movieRepository.save(movie.get());
-            return new ResponseEntity<Movie>(result, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<Movie>(HttpStatus.NOT_FOUND);
+            Movie fetchedMovie = movie.get();
+            List<Movie> recoveredMovies = movieRepository.findByImdbId(fetchedMovie.getImdbId());
+            if (!recoveredMovies.isEmpty()) {
+                fetchedMovie.setId(recoveredMovies.get(0).getId());
+                Movie result = movieRepository.save(fetchedMovie);
+                return ResponseEntity.ok()
+                    .headers(HeaderUtil.createEntityUpdateAlert("movie", result.getId().toString()))
+                    .body(result);
+            }
+            Movie result = movieRepository.save(fetchedMovie);
+            return ResponseEntity.created(new URI("/api/movies/" + result.getId()))
+                .headers(HeaderUtil.createEntityCreationAlert("movie", result.getId().toString()))
+                .body(result);
         }
+        return ResponseEntity.badRequest().headers(
+            HeaderUtil.createFailureAlert(
+                "movie",
+                "idnotfound",
+                String.format("No movie could be fetched with %s name", movieName)))
+            .body(null);
     }
 
     /**
