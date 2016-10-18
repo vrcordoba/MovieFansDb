@@ -47,6 +47,9 @@ public class Movie implements Serializable {
     @Column(name = "genre")
     private String genre;
 
+    @Column(name = "creator")
+    private String creator;
+
     @ManyToMany
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     @JoinTable(name = "movie_cast",
@@ -61,10 +64,6 @@ public class Movie implements Serializable {
     @JsonIgnore
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Review> reviews = new HashSet<>();
-
-    @OneToOne
-    @JoinColumn(unique = true)
-    private User creator;
 
     public Long getId() {
         return id;
@@ -152,6 +151,19 @@ public class Movie implements Serializable {
         this.genre = genre;
     }
 
+    public String getCreator() {
+        return creator;
+    }
+
+    public Movie creator(String creator) {
+        this.creator = creator;
+        return this;
+    }
+
+    public void setCreator(String creator) {
+        this.creator = creator;
+    }
+
     public Set<Actor> getCasts() {
         return casts;
     }
@@ -215,19 +227,6 @@ public class Movie implements Serializable {
         this.reviews = reviews;
     }
 
-    public User getCreator() {
-        return creator;
-    }
-
-    public Movie creator(User user) {
-        this.creator = user;
-        return this;
-    }
-
-    public void setCreator(User user) {
-        this.creator = user;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -258,6 +257,7 @@ public class Movie implements Serializable {
             ", plot='" + plot + "'" +
             ", rating='" + rating + "'" +
             ", genre='" + genre + "'" +
+            ", creator='" + creator + "'" +
             '}';
     }
 }

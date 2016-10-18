@@ -5,11 +5,12 @@
         .module('movieFansDbApp')
         .controller('MovieDialogController', MovieDialogController);
 
-    MovieDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', '$q', 'entity', 'Movie', 'Actor', 'Director', 'Review', 'User'];
+    MovieDialogController.$inject = ['$timeout', '$scope', 'Principal', '$stateParams', '$uibModalInstance', '$q', 'entity', 'Movie', 'Actor', 'Director', 'Review'];
 
-    function MovieDialogController ($timeout, $scope, $stateParams, $uibModalInstance, $q, entity, Movie, Actor, Director, Review, User) {
+    function MovieDialogController ($timeout, $scope, Principal, $stateParams, $uibModalInstance, $q, entity, Movie, Actor, Director, Review) {
         var vm = this;
 
+        vm.account = null;
         vm.movie = entity;
         vm.clear = clear;
         vm.datePickerOpenStatus = {};
@@ -18,7 +19,6 @@
         vm.actors = Actor.query();
         vm.directors = Director.query();
         vm.reviews = Review.query();
-        vm.users = User.query();
 
         $timeout(function (){
             angular.element('.form-group:eq(1)>input').focus();
@@ -51,6 +51,17 @@
 
         function openCalendar (date) {
             vm.datePickerOpenStatus[date] = true;
+        }
+
+        getAccount();
+
+        function getAccount() {
+            debugger;
+            Principal.identity().then(function(account) {
+                vm.account = account;
+                console.log(vm.account.login)
+                debugger;
+            });
         }
     }
 })();

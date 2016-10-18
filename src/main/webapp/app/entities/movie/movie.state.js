@@ -110,7 +110,8 @@
                                 plot: null,
                                 rating: null,
                                 genre: null,
-                                id: null
+                                id: null,
+                                creator: null
                             };
                         }
                     }

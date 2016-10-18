@@ -10,6 +10,7 @@ import java.util.Optional;
 
 import org.springframework.web.client.RestTemplate;
 import org.vrcordoba.moviefansdb.domain.Movie;
+import org.vrcordoba.moviefansdb.security.SecurityUtils;
 
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
@@ -52,6 +53,7 @@ public class MovieFetcher {
       movie.setPlot(data.get("Plot").asText());
       movie.setRating((float) data.get("imdbRating").asDouble());
       movie.setTitle(data.get("Title").asText());
+      movie.setCreator(SecurityUtils.getCurrentUserLogin());
 
       //TODO: fill these fields
       /*DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d LLL yyyy")
@@ -59,7 +61,6 @@ public class MovieFetcher {
       movie.setDate(LocalDate.parse(data.get("Released").asText(), formatter));*/
       movie.setDate(null);
       movie.setCasts(null);
-      movie.setCreator(null);
       movie.setDirector(null);
       movie.setReviews(null);
 

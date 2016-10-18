@@ -4,7 +4,7 @@ describe('Controller Tests', function() {
 
     describe('Movie Management Detail Controller', function() {
         var $scope, $rootScope;
-        var MockEntity, MockPreviousState, MockMovie, MockActor, MockDirector, MockReview, MockUser;
+        var MockEntity, MockPreviousState, MockMovie, MockActor, MockDirector, MockReview;
         var createController;
 
         beforeEach(inject(function($injector) {
@@ -16,7 +16,6 @@ describe('Controller Tests', function() {
             MockActor = jasmine.createSpy('MockActor');
             MockDirector = jasmine.createSpy('MockDirector');
             MockReview = jasmine.createSpy('MockReview');
-            MockUser = jasmine.createSpy('MockUser');
             
 
             var locals = {
@@ -27,8 +26,7 @@ describe('Controller Tests', function() {
                 'Movie': MockMovie,
                 'Actor': MockActor,
                 'Director': MockDirector,
-                'Review': MockReview,
-                'User': MockUser
+                'Review': MockReview
             };
             createController = function() {
                 $injector.get('$controller')("MovieDetailController", locals);

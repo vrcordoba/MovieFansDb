@@ -20,12 +20,6 @@
             "otherEntityName": "review",
             "relationshipType": "one-to-many",
             "otherEntityRelationshipName": "movie"
-        },
-        {
-            "relationshipName": "creator",
-            "otherEntityName": "user",
-            "relationshipType": "one-to-one",
-            "ownerSide": true
         }
     ],
     "fields": [
@@ -60,6 +54,10 @@
         },
         {
             "fieldName": "genre",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "creator",
             "fieldType": "String"
         }
     ],
