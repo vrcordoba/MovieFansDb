@@ -6,13 +6,6 @@
             "otherEntityName": "movie",
             "relationshipType": "many-to-one",
             "otherEntityField": "title"
-        },
-        {
-            "relationshipName": "author",
-            "otherEntityName": "user",
-            "relationshipType": "many-to-one",
-            "otherEntityField": "login",
-            "ownerSide": true
         }
     ],
     "fields": [
@@ -27,7 +20,12 @@
         {
             "fieldName": "content",
             "fieldType": "String"
+        },
+        {
+            "fieldName": "author",
+            "fieldType": "String"
         }
+
     ],
     "changelogDate": "20161015155106",
     "dto": "no",

@@ -107,7 +107,8 @@
                                 title: null,
                                 date: null,
                                 content: null,
-                                id: null
+                                id: null,
+                                author: null
                             };
                         }
                     }

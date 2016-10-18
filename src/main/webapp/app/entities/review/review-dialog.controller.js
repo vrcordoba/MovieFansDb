@@ -5,9 +5,9 @@
         .module('movieFansDbApp')
         .controller('ReviewDialogController', ReviewDialogController);
 
-    ReviewDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'entity', 'Review', 'Movie', 'User'];
+    ReviewDialogController.$inject = ['$timeout', '$scope', 'Principal', '$stateParams', '$uibModalInstance', 'entity', 'Review', 'Movie'];
 
-    function ReviewDialogController ($timeout, $scope, $stateParams, $uibModalInstance, entity, Review, Movie, User) {
+    function ReviewDialogController ($timeout, $scope, Principal, $stateParams, $uibModalInstance, entity, Review, Movie, User) {
         var vm = this;
 
         vm.review = entity;
@@ -16,7 +16,6 @@
         vm.openCalendar = openCalendar;
         vm.save = save;
         vm.movies = Movie.query();
-        vm.users = User.query();
 
         $timeout(function (){
             angular.element('.form-group:eq(1)>input').focus();
@@ -49,6 +48,14 @@
 
         function openCalendar (date) {
             vm.datePickerOpenStatus[date] = true;
+        }
+
+        getAuthor();
+
+        function getAuthor() {
+            Principal.identity().then(function(account) {
+                vm.review.author = account.login;
+            });
         }
     }
 })();

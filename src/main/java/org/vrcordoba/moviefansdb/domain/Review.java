@@ -31,11 +31,11 @@ public class Review implements Serializable {
     @Column(name = "content", length = 5000)
     private String content;
 
-    @ManyToOne
-    private Movie movie;
+    @Column(name = "author")
+    private String author;
 
     @ManyToOne
-    private User author;
+    private Movie movie;
 
     public Long getId() {
         return id;
@@ -84,6 +84,19 @@ public class Review implements Serializable {
         this.content = content;
     }
 
+    public String getAuthor() {
+        return author;
+    }
+
+    public Review author(String author) {
+        this.author = author;
+        return this;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
     public Movie getMovie() {
         return movie;
     }
@@ -95,19 +108,6 @@ public class Review implements Serializable {
 
     public void setMovie(Movie movie) {
         this.movie = movie;
-    }
-
-    public User getAuthor() {
-        return author;
-    }
-
-    public Review author(User user) {
-        this.author = user;
-        return this;
-    }
-
-    public void setAuthor(User user) {
-        this.author = user;
     }
 
     @Override
@@ -137,6 +137,7 @@ public class Review implements Serializable {
             ", title='" + title + "'" +
             ", date='" + date + "'" +
             ", content='" + content + "'" +
+            ", author='" + author + "'" +
             '}';
     }
 }

@@ -12,7 +12,4 @@ import java.util.List;
 @SuppressWarnings("unused")
 public interface ReviewRepository extends JpaRepository<Review,Long> {
 
-    @Query("select review from Review review where review.author.login = ?#{principal.username}")
-    List<Review> findByAuthorIsCurrentUser();
-
 }

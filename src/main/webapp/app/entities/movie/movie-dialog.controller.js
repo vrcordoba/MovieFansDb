@@ -10,7 +10,6 @@
     function MovieDialogController ($timeout, $scope, Principal, $stateParams, $uibModalInstance, $q, entity, Movie, Actor, Director, Review) {
         var vm = this;
 
-        vm.account = null;
         vm.movie = entity;
         vm.clear = clear;
         vm.datePickerOpenStatus = {};
@@ -53,14 +52,11 @@
             vm.datePickerOpenStatus[date] = true;
         }
 
-        getAccount();
+        getCreator();
 
-        function getAccount() {
-            debugger;
+        function getCreator() {
             Principal.identity().then(function(account) {
-                vm.account = account;
-                console.log(vm.account.login)
-                debugger;
+                vm.movie.creator = account.login;
             });
         }
     }
