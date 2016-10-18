@@ -1,9 +1,6 @@
 package org.vrcordoba.moviefansdb.web.rest.clients;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 import java.util.Optional;
@@ -54,12 +51,11 @@ public class MovieFetcher {
       movie.setRating((float) data.get("imdbRating").asDouble());
       movie.setTitle(data.get("Title").asText());
       movie.setCreator(SecurityUtils.getCurrentUserLogin());
+      DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM yyyy")
+          .withLocale(Locale.US);
+      movie.setDate(LocalDate.parse(data.get("Released").asText(), formatter));
 
       //TODO: fill these fields
-      /*DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d LLL yyyy")
-          .withLocale(Locale.US);
-      movie.setDate(LocalDate.parse(data.get("Released").asText(), formatter));*/
-      movie.setDate(null);
       movie.setCasts(null);
       movie.setDirector(null);
       movie.setReviews(null);
