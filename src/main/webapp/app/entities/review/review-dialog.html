@@ -31,9 +31,8 @@
         </div>
         <div class="form-group">
             <label class="control-label" data-translate="movieFansDbApp.review.content" for="field_content">Content</label>
-            <input type="text" class="form-control" name="content" id="field_content"
-                    ng-model="vm.review.content"
-                     />
+            <textarea class="form-control" name="content" id="field_content"
+                    cols="115" rows="20">{{vm.review.content}}</textarea>
         </div>
 
         <div class="form-group">

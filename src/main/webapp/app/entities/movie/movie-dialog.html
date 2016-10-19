@@ -43,9 +43,8 @@
         </div>
         <div class="form-group">
             <label class="control-label" data-translate="movieFansDbApp.movie.plot" for="field_plot">Plot</label>
-            <input type="text" class="form-control" name="plot" id="field_plot"
-                    ng-model="vm.movie.plot"
-                     />
+            <textarea class="form-control" name="plot" id="field_plot"
+                    cols="115" rows="20">{{vm.movie.plot}}</textarea>
         </div>
         <div class="form-group">
             <label class="control-label" data-translate="movieFansDbApp.movie.rating" for="field_rating">Rating</label>
