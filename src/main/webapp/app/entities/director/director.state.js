@@ -107,7 +107,8 @@
                                 name: null,
                                 biography: null,
                                 imdbId: null,
-                                id: null
+                                id: null,
+                                creator: null
                             };
                         }
                     }

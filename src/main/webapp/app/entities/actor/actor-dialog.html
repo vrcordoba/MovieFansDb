@@ -39,10 +39,10 @@
         </div>
 
         <div class="form-group">
-            <label data-translate="movieFansDbApp.actor.creator" for="field_creator">Creator</label>
-            <select class="form-control" id="field_creator" name="creator" ng-model="vm.actor.creator" ng-options="user as user. for user in vm.users track by user.id">
-                <option value=""></option>
-            </select>
+            <label class="control-label" data-translate="movieFansDbApp.actor.creator" for="field_title">Creator</label>
+            <input type="text" class="form-control" name="creator" id="field_creator"
+                    ng-model="vm.actor.creator"
+                     readonly/>
         </div>
     </div>
     <div class="modal-footer">

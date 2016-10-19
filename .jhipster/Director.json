@@ -6,12 +6,6 @@
             "otherEntityName": "movie",
             "relationshipType": "one-to-many",
             "otherEntityRelationshipName": "director"
-        },
-        {
-            "relationshipName": "creator",
-            "otherEntityName": "user",
-            "relationshipType": "one-to-one",
-            "ownerSide": true
         }
     ],
     "fields": [
@@ -29,6 +23,10 @@
             "fieldValidateRules": [
                 "required"
             ]
+        },
+        {
+            "fieldName": "creator",
+            "fieldType": "String"
         }
     ],
     "changelogDate": "20161015155312",

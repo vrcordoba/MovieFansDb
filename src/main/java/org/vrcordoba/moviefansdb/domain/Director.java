@@ -35,14 +35,13 @@ public class Director implements Serializable {
     @Column(name = "imdb_id", nullable = false)
     private String imdbId;
 
+    @Column(name = "creator")
+    private String creator;
+
     @OneToMany(mappedBy = "director")
     @JsonIgnore
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Movie> movies = new HashSet<>();
-
-    @OneToOne
-    @JoinColumn(unique = true)
-    private User creator;
 
     public Long getId() {
         return id;
@@ -116,17 +115,17 @@ public class Director implements Serializable {
         this.movies = movies;
     }
 
-    public User getCreator() {
+    public String getCreator() {
         return creator;
     }
 
-    public Director creator(User user) {
-        this.creator = user;
+    public Director creator(String creator) {
+        this.creator = creator;
         return this;
     }
 
-    public void setCreator(User user) {
-        this.creator = user;
+    public void setCreator(String creator) {
+        this.creator = creator;
     }
 
     @Override
@@ -156,6 +155,7 @@ public class Director implements Serializable {
             ", name='" + name + "'" +
             ", biography='" + biography + "'" +
             ", imdbId='" + imdbId + "'" +
+            ", creator='" + creator + "'" +
             '}';
     }
 }

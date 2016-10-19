@@ -19,4 +19,6 @@
     <include file="config/liquibase/changelog/20161017223600_alter_entity_Review.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20161018194500_alter_entity_Movie.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20161018211400_alter_entity_Review.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20161019212200_alter_entity_Actor.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20161019212300_alter_entity_Director.xml" relativeToChangelogFile="false"/>
 </databaseChangeLog>

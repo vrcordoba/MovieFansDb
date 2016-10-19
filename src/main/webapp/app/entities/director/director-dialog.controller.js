@@ -5,16 +5,15 @@
         .module('movieFansDbApp')
         .controller('DirectorDialogController', DirectorDialogController);
 
-    DirectorDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', '$q', 'entity', 'Director', 'Movie', 'User'];
+    DirectorDialogController.$inject = ['$timeout', '$scope', 'Principal', '$stateParams', '$uibModalInstance', '$q', 'entity', 'Director', 'Movie'];
 
-    function DirectorDialogController ($timeout, $scope, $stateParams, $uibModalInstance, $q, entity, Director, Movie, User) {
+    function DirectorDialogController ($timeout, $scope, Principal, $stateParams, $uibModalInstance, $q, entity, Director, Movie) {
         var vm = this;
 
         vm.director = entity;
         vm.clear = clear;
         vm.save = save;
         vm.movies = Movie.query();
-        vm.users = User.query();
 
         $timeout(function (){
             angular.element('.form-group:eq(1)>input').focus();
@@ -43,6 +42,12 @@
             vm.isSaving = false;
         }
 
+        getCreator();
 
+        function getCreator() {
+            Principal.identity().then(function(account) {
+                vm.director.creator = account.login;
+            });
+        }
     }
 })();

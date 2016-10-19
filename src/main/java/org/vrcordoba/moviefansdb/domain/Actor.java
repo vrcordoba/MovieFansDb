@@ -35,14 +35,13 @@ public class Actor implements Serializable {
     @Column(name = "biography")
     private String biography;
 
+    @Column(name = "creator")
+    private String creator;
+
     @ManyToMany(mappedBy = "casts")
     @JsonIgnore
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Movie> movies = new HashSet<>();
-
-    @OneToOne
-    @JoinColumn(unique = true)
-    private User creator;
 
     public Long getId() {
         return id;
@@ -116,17 +115,17 @@ public class Actor implements Serializable {
         this.movies = movies;
     }
 
-    public User getCreator() {
+    public String getCreator() {
         return creator;
     }
 
-    public Actor creator(User user) {
-        this.creator = user;
+    public Actor creator(String creator) {
+        this.creator = creator;
         return this;
     }
 
-    public void setCreator(User user) {
-        this.creator = user;
+    public void setCreator(String creator) {
+        this.creator = creator;
     }
 
     @Override
@@ -156,6 +155,7 @@ public class Actor implements Serializable {
             ", imdbId='" + imdbId + "'" +
             ", name='" + name + "'" +
             ", biography='" + biography + "'" +
+            ", creator='" + creator + "'" +
             '}';
     }
 }

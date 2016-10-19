@@ -5,9 +5,9 @@
         .module('movieFansDbApp')
         .controller('ActorDetailController', ActorDetailController);
 
-    ActorDetailController.$inject = ['$scope', '$rootScope', '$stateParams', 'previousState', 'entity', 'Actor', 'Movie', 'User'];
+    ActorDetailController.$inject = ['$scope', '$rootScope', '$stateParams', 'previousState', 'entity', 'Actor', 'Movie'];
 
-    function ActorDetailController($scope, $rootScope, $stateParams, previousState, entity, Actor, Movie, User) {
+    function ActorDetailController($scope, $rootScope, $stateParams, previousState, entity, Actor, Movie) {
         var vm = this;
 
         vm.actor = entity;
