@@ -19,6 +19,7 @@ import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -78,15 +79,14 @@ public class MovieResource {
             movieName,
             actorRepository,
             directorRepository);
-        Optional<Movie> movie = movieFetcher.fetchMovie();
-        if (movie.isPresent()) {
-            Movie fetchedMovie = movie.get();
-            List<Movie> recoveredMovies = movieRepository.findByImdbId(fetchedMovie.getImdbId());
+        Movie movie = movieFetcher.fetch();
+        if (Objects.nonNull(movie)) {
+            List<Movie> recoveredMovies = movieRepository.findByImdbId(movie.getImdbId());
             if (!recoveredMovies.isEmpty()) {
-                fetchedMovie.setId(recoveredMovies.get(0).getId());
-                return updateMovie(fetchedMovie);
+                movie.setId(recoveredMovies.get(0).getId());
+                return updateMovie(movie);
             }
-            return createMovie(fetchedMovie);
+            return createMovie(movie);
         }
         return ResponseEntity.badRequest().headers(
             HeaderUtil.createFailureAlert(

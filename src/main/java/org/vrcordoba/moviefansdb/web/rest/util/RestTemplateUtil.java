@@ -2,6 +2,7 @@ package org.vrcordoba.moviefansdb.web.rest.util;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.AbstractHttpMessageConverter;
@@ -10,6 +11,16 @@ import org.springframework.http.converter.json.MappingJackson2HttpMessageConvert
 import org.springframework.web.client.RestTemplate;
 
 public class RestTemplateUtil {
+
+    public static final String IMDB_WMS_SEARCH_URL =
+      "http://imdb.wemakesites.net/api/";
+
+    public static final String OMDB_SEARCH_URL =
+        "http://www.omdbapi.com/?plot=full&r=json&i=";
+
+    public static String prepareForQuery(String inputString) {
+        return inputString.replaceAll("\\p{Space}", "+");
+    }
 
     public static RestTemplate createRestTemplateWithTextHtmlSupport() {
         RestTemplate template = new RestTemplate();

@@ -4,7 +4,7 @@
             "home": {
                 "title": "Movies",
                 "createLabel": "Create a new Movie",
-                "fetchFromInternetLabel": "Fetch new Movie from Internet",
+                "fetchFromInternetLabel": "Fetch Movie from Internet",
                 "createOrEditLabel": "Create or edit a Movie",
                 "search": "Search for Movie"
             },

@@ -17,7 +17,7 @@ import java.util.Objects;
 @Entity
 @Table(name = "actor")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class Actor implements Serializable {
+public class Actor implements CrewMember, Serializable {
 
     private static final long serialVersionUID = 1L;
 

@@ -17,7 +17,7 @@ import java.util.Objects;
 @Entity
 @Table(name = "director")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class Director implements Serializable {
+public class Director implements CrewMember, Serializable {
 
     private static final long serialVersionUID = 1L;
 

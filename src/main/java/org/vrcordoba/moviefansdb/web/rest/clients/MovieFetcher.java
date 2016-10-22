@@ -18,6 +18,7 @@ import org.vrcordoba.moviefansdb.domain.Review;
 import org.vrcordoba.moviefansdb.repository.ActorRepository;
 import org.vrcordoba.moviefansdb.repository.DirectorRepository;
 import org.vrcordoba.moviefansdb.security.SecurityUtils;
+import org.vrcordoba.moviefansdb.web.rest.util.RestTemplateUtil;
 
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
@@ -28,74 +29,70 @@ public class MovieFetcher {
     private ActorRepository actorRepository;
     private DirectorRepository directorRepository;
 
-    private static final String OMDB_SEARCH_URL =
-        "http://www.omdbapi.com/?plot=full&r=json&i=";
-
     public MovieFetcher(
         final String movieName,
         final ActorRepository actorRepository,
         final DirectorRepository directorRepository) {
         movieImdbFetcher = new ImdbIdFetcher(
             ImdbQueryType.MOVIE,
-            prepareForQuery(movieName));
+            RestTemplateUtil.prepareForQuery(movieName));
         restTemplate = new RestTemplate();
         this.actorRepository = actorRepository;
         this.directorRepository = directorRepository;
     }
 
-    private String prepareForQuery(String inputString) {
-        return inputString.replaceAll("\\p{Space}", "+");
-    }
-
-    public Optional<Movie> fetchMovie() {
+    public Movie fetch() {
         Optional<String> movieImdbId = movieImdbFetcher.fetchId();
-        Optional<Movie> optionalMovie = Optional.empty();
+        Movie movie = null;
         if (movieImdbId.isPresent()) {
             ObjectNode data = restTemplate.getForObject(
-                OMDB_SEARCH_URL + movieImdbId.get(),
+                RestTemplateUtil.OMDB_SEARCH_URL + movieImdbId.get(),
                 ObjectNode.class);
-            optionalMovie = Optional.of(parseJsonMovie(data));
+            movie = parseJson(data);
         }
-        return optionalMovie;
+        return movie;
     }
 
-    private Movie parseJsonMovie(final ObjectNode data) {
-      Movie movie = new Movie();
+    private Movie parseJson(final ObjectNode data) {
+        Movie movie = new Movie();
 
-      movie.setGenre(data.get("Genre").asText());
-      movie.setImdbId(data.get("imdbID").asText());
-      movie.setPlot(data.get("Plot").asText());
-      movie.setRating((float) data.get("imdbRating").asDouble());
-      movie.setTitle(data.get("Title").asText());
-      movie.setCreator(SecurityUtils.getCurrentUserLogin());
-      DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM yyyy")
-          .withLocale(Locale.US);
-      movie.setDate(LocalDate.parse(data.get("Released").asText(), formatter));
+        movie.setGenre(data.get("Genre").asText());
+        movie.setImdbId(data.get("imdbID").asText());
+        movie.setPlot(data.get("Plot").asText());
+        movie.setRating((float) data.get("imdbRating").asDouble());
+        movie.setTitle(data.get("Title").asText());
+        movie.setCreator(SecurityUtils.getCurrentUserLogin());
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM yyyy")
+            .withLocale(Locale.US);
+        movie.setDate(LocalDate.parse(data.get("Released").asText(), formatter));
 
-      movie.setCasts(fetchCast(data.get("Actors").asText(), movie));
-      movie.setDirector(fetchDirector(data.get("Director").asText()));
-      movie.setReviews(fetchReviews());
+        movie.setCasts(fetchCast(data.get("Actors").asText(), movie));
+        movie.setDirector(fetchDirector(data.get("Director").asText(), movie));
+        movie.setReviews(fetchReviews());
 
-      return movie;
+        return movie;
     }
 
     private Set<Actor> fetchCast(final String actorNames, final Movie movie) {
         String[] actors = actorNames.split(", ");
         Set<Actor> cast = new HashSet<>();
+        CrewFetcher<Actor, ActorRepository> actorFetcher = new CrewFetcher<>(movie);
         for (String actor : actors) {
-            Actor fetchedActor = new ActorFetcher(actor, actorRepository).fetch();
-            if (Objects.nonNull(fetchedActor)) {
-                Set<Movie> currentMovies = fetchedActor.getMovies();
-                currentMovies.add(movie);
-                fetchedActor.setMovies(currentMovies);
+            Actor fetchedActor = new Actor();
+            if(actorFetcher.fetch(actor, fetchedActor, actorRepository)) {
                 cast.add(fetchedActor);
             }
         }
         return cast;
     }
 
-    private Director fetchDirector(final String directorName) {
-        return null;
+    private Director fetchDirector(final String directorName, final Movie movie) {
+        Director fetchedDirector = new Director();
+        if(new CrewFetcher<>(movie).fetch(directorName, fetchedDirector, directorRepository)) {
+            return fetchedDirector;
+        } else {
+            return null;
+        }
     }
 
     private Set<Review> fetchReviews() {
