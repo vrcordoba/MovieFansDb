@@ -1,7 +1,6 @@
 package org.vrcordoba.moviefansdb.repository;
 
 import org.vrcordoba.moviefansdb.domain.Actor;
-
 import org.springframework.data.jpa.repository.*;
 
 import java.util.List;
@@ -12,4 +11,5 @@ import java.util.List;
 @SuppressWarnings("unused")
 public interface ActorRepository extends JpaRepository<Actor,Long> {
 
+  List<Actor> findByImdbId(String imdbId);
 }

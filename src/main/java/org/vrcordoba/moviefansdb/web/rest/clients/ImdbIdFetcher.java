@@ -9,6 +9,7 @@ import org.springframework.http.converter.AbstractHttpMessageConverter;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
+import org.vrcordoba.moviefansdb.web.rest.util.RestTemplateUtil;
 
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
@@ -28,24 +29,8 @@ public class ImdbIdFetcher {
             + this.imdbQueryType.getShortType()
             + IMDB_QUERY_SECOND_PART
             + searchTerm;
-        restTemplate = createRestTemplateWithTextHtmlSupport();
+        restTemplate = RestTemplateUtil.createRestTemplateWithTextHtmlSupport();
     }
-
-    private RestTemplate createRestTemplateWithTextHtmlSupport() {
-      RestTemplate template = new RestTemplate();
-      List<HttpMessageConverter<?>> converters = template.getMessageConverters();
-      for(HttpMessageConverter<?> converter : converters) {
-          if(converter instanceof MappingJackson2HttpMessageConverter) {
-              try {
-                  ((AbstractHttpMessageConverter<Object>) converter).setSupportedMediaTypes(
-                      Collections.singletonList(MediaType.TEXT_HTML));
-              } catch(Exception e) {
-                  e.printStackTrace();
-              }
-          }
-      }
-      return template;
-  }
 
     public Optional<String> fetchId() {
         ObjectNode data = restTemplate.getForObject(imdbSearchUrl, ObjectNode.class);

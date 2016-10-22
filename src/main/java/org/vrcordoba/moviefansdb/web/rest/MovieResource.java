@@ -2,13 +2,13 @@ package org.vrcordoba.moviefansdb.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import org.vrcordoba.moviefansdb.domain.Movie;
-
+import org.vrcordoba.moviefansdb.repository.ActorRepository;
+import org.vrcordoba.moviefansdb.repository.DirectorRepository;
 import org.vrcordoba.moviefansdb.repository.MovieRepository;
 import org.vrcordoba.moviefansdb.web.rest.clients.MovieFetcher;
 import org.vrcordoba.moviefansdb.web.rest.util.HeaderUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -32,6 +32,12 @@ public class MovieResource {
         
     @Inject
     private MovieRepository movieRepository;
+
+    @Inject
+    private ActorRepository actorRepository;
+
+    @Inject
+    private DirectorRepository directorRepository;
 
     /**
      * POST  /movies : Create a new movie.
@@ -68,22 +74,19 @@ public class MovieResource {
     @Timed
     public ResponseEntity<Movie> fetchMovie(@Valid @RequestBody String movieName) throws URISyntaxException {
         log.debug("REST request to fetch Movie : {}", movieName);
-        MovieFetcher movieFetcher = new MovieFetcher(movieName);
+        MovieFetcher movieFetcher = new MovieFetcher(
+            movieName,
+            actorRepository,
+            directorRepository);
         Optional<Movie> movie = movieFetcher.fetchMovie();
         if (movie.isPresent()) {
             Movie fetchedMovie = movie.get();
             List<Movie> recoveredMovies = movieRepository.findByImdbId(fetchedMovie.getImdbId());
             if (!recoveredMovies.isEmpty()) {
                 fetchedMovie.setId(recoveredMovies.get(0).getId());
-                Movie result = movieRepository.save(fetchedMovie);
-                return ResponseEntity.ok()
-                    .headers(HeaderUtil.createEntityUpdateAlert("movie", result.getId().toString()))
-                    .body(result);
+                return updateMovie(fetchedMovie);
             }
-            Movie result = movieRepository.save(fetchedMovie);
-            return ResponseEntity.created(new URI("/api/movies/" + result.getId()))
-                .headers(HeaderUtil.createEntityCreationAlert("movie", result.getId().toString()))
-                .body(result);
+            return createMovie(fetchedMovie);
         }
         return ResponseEntity.badRequest().headers(
             HeaderUtil.createFailureAlert(
