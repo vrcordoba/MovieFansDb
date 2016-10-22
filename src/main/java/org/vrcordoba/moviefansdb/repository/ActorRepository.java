@@ -12,4 +12,10 @@ import java.util.List;
 public interface ActorRepository extends JpaRepository<Actor,Long>, CrewMemberRepository {
 
     List<CrewMember> findByImdbId(String imdbId);
+
+    List<Actor> findByNameContainingAndCreator(String name, String Creator);
+
+    List<Actor> findByNameContaining(String name);
+
+    List<Actor> findByCreator(String Creator);
 }

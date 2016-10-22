@@ -28,7 +28,13 @@
                     $translatePartialLoader.addPart('actor');
                     $translatePartialLoader.addPart('global');
                     return $translate.refresh();
-                }]
+                }],
+                entity: function () {
+                    return {
+                        name: null,
+                        creator: null
+                    };
+                }
             }
         })
         .state('actor-detail', {

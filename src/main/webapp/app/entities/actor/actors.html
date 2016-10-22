@@ -2,15 +2,30 @@
     <h2 data-translate="movieFansDbApp.actor.home.title">Actors</h2>
     <jhi-alert></jhi-alert>
     <div class="container-fluid">
-        <div class="row">
-            <div class="col-xs-4 no-padding-left">
-                <button class="btn btn-primary" ui-sref="actor.new" >
-                    <span class="glyphicon glyphicon-plus"></span>
-                    <span  data-translate="movieFansDbApp.actor.home.createLabel">
-                        Create new Actor
-                    </span>
-                </button>
+        <div class="col-xs-4 no-padding-left">
+            <button class="btn btn-primary" ui-sref="actor.new" >
+            <span class="glyphicon glyphicon-plus"></span>
+                <span  data-translate="movieFansDbApp.actor.home.createLabel">
+                    Create new Actor
+                </span>
+            </button>
+            <h3 data-translate="movieFansDbApp.actor.filters.applicable">Applicable filters</h3>
+            <div class = "row">
+                <div class="form-group col-xs-4 no-padding-left">
+                    <label class="control-label" data-translate="movieFansDbApp.actor.filters.name" for="field_name">Name contains</label>
+                    <input type="text" class="form-control" name="name" id="field_name" ng-model="vm.filter.name"/>
+                </div>
+                <div class="form-group col-xs-4 no-padding-left">
+                    <label class="control-label" data-translate="movieFansDbApp.actor.filters.creator" for="field_creator">Created by</label>
+                    <input type="text" class="form-control" name="creator" id="field_creator" ng-model="vm.filter.creator"/>
+                </div>
             </div>
+            <button class="btn btn-primary" type="submit" ng-click="vm.filterActors()">
+                <span class="glyphicon glyphicon-eye-open"></span>
+                <span  data-translate="movieFansDbApp.actor.home.filter">
+                    Filter actors
+                </span>
+            </button>
         </div>
     </div>
     <br/>

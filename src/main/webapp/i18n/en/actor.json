@@ -5,13 +5,19 @@
                 "title": "Actors",
                 "createLabel": "Create a new Actor",
                 "createOrEditLabel": "Create or edit a Actor",
-                "search": "Search for Actor"
+                "search": "Search for Actor",
+                "filter": "Filter actors"
             },
             "created": "A new Actor is created with identifier {{ param }}",
             "updated": "A Actor is updated with identifier {{ param }}",
             "deleted": "A Actor is deleted with identifier {{ param }}",
             "delete": {
                 "question": "Are you sure you want to delete Actor {{ id }}?"
+            },
+            "filters": {
+                "applicable": "Applicable filters",
+                "name": "Name contains",
+                "creator": "Created by"
             },
             "detail": {
                 "title": "Actor"

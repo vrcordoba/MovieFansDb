@@ -2,7 +2,7 @@ package org.vrcordoba.moviefansdb.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import org.vrcordoba.moviefansdb.domain.Actor;
-
+import org.vrcordoba.moviefansdb.domain.CrewMember;
 import org.vrcordoba.moviefansdb.repository.ActorRepository;
 import org.vrcordoba.moviefansdb.web.rest.util.HeaderUtil;
 import org.slf4j.Logger;
@@ -18,6 +18,7 @@ import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -87,9 +88,23 @@ public class ActorResource {
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public List<Actor> getAllActors() {
-        log.debug("REST request to get all Actors");
-        List<Actor> actors = actorRepository.findAll();
+    public List<Actor> getAllActors(
+        @RequestParam(required = false) String name,
+        @RequestParam(required = false) String creator) {
+        List<Actor> actors = null;
+        if(Objects.nonNull(name) && Objects.nonNull(creator)) {
+            log.debug("REST request to get all Actors by name and creator");
+            actors = actorRepository.findByNameContainingAndCreator(name, creator);
+        } else if(Objects.nonNull(name)) {
+            log.debug("REST request to get all Actors by name");
+            actors = actorRepository.findByNameContaining(name);
+        } else if(Objects.nonNull(creator)) {
+            log.debug("REST request to get all Actors by creator");
+            actors = actorRepository.findByCreator(creator);
+        } else {
+            log.debug("REST request to get all Actors");
+            actors = actorRepository.findAll();
+        }
         return actors;
     }
 
