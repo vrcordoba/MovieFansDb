@@ -1,6 +1,7 @@
 package org.vrcordoba.moviefansdb.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
+
 import org.vrcordoba.moviefansdb.domain.Director;
 
 import org.vrcordoba.moviefansdb.repository.DirectorRepository;
@@ -17,6 +18,7 @@ import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -78,7 +80,7 @@ public class DirectorResource {
     }
 
     /**
-     * GET  /directors : get all the directors.
+     * GET  /directors : get directors, possibly applying filters.
      *
      * @return the ResponseEntity with status 200 (OK) and the list of directors in body
      */
@@ -86,9 +88,25 @@ public class DirectorResource {
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public List<Director> getAllDirectors() {
-        log.debug("REST request to get all Directors");
-        List<Director> directors = directorRepository.findAll();
+    public List<Director> getDirectors(
+            @RequestParam(required = false) String name,
+            @RequestParam(required = false) String creator) {
+        List<Director> directors = null;
+        if(Objects.nonNull(name) && Objects.nonNull(creator)) {
+            log.debug("REST request to get all Directors by name and creator");
+            directors = directorRepository.findByNameContainingAndCreatorAllIgnoreCase(
+                name,
+                creator);
+        } else if(Objects.nonNull(name)) {
+            log.debug("REST request to get all Directors by name");
+            directors = directorRepository.findByNameContainingIgnoreCase(name);
+        } else if(Objects.nonNull(creator)) {
+            log.debug("REST request to get all Directors by creator");
+            directors = directorRepository.findByCreator(creator);
+        } else {
+            log.debug("REST request to get all Directors");
+            directors = directorRepository.findAll();
+        }
         return directors;
     }
 

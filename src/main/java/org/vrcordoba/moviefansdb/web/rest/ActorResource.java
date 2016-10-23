@@ -87,8 +87,8 @@ public class ActorResource {
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     public List<Actor> getActors(
-        @RequestParam(required = false) String name,
-        @RequestParam(required = false) String creator) {
+            @RequestParam(required = false) String name,
+            @RequestParam(required = false) String creator) {
         List<Actor> actors = null;
         if(Objects.nonNull(name) && Objects.nonNull(creator)) {
             log.debug("REST request to get all Actors by name and creator");

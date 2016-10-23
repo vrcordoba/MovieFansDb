@@ -28,7 +28,13 @@
                     $translatePartialLoader.addPart('director');
                     $translatePartialLoader.addPart('global');
                     return $translate.refresh();
-                }]
+                }],
+                entity: function () {
+                    return {
+                        name: null,
+                        creator: null
+                    };
+                }
             }
         })
         .state('director-detail', {

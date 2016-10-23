@@ -1,15 +1,32 @@
 <div>
     <h2 data-translate="movieFansDbApp.director.home.title">Directors</h2>
     <jhi-alert></jhi-alert>
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-xs-4 no-padding-left">
-                <button class="btn btn-primary" ui-sref="director.new" >
-                    <span class="glyphicon glyphicon-plus"></span>
-                    <span  data-translate="movieFansDbApp.director.home.createLabel">
-                        Create new Director
-                    </span>
-                </button>
+    <div class="row">
+        <div class="col-sm-4">
+            <button class="btn btn-primary" ui-sref="director.new" >
+            <span class="glyphicon glyphicon-plus"></span>
+                <span  data-translate="movieFansDbApp.director.home.createLabel">
+                    Create new Director
+                </span>
+            </button>
+        </div>
+        <div class="col-sm-4">
+            <button class="btn btn-primary" type="submit" ng-click="vm.filterDirectors()">
+                <span class="glyphicon glyphicon-eye-open"></span>
+                <span  data-translate="movieFansDbApp.director.home.filter">
+                    Filter directors
+                </span>
+            </button>
+            <h3 data-translate="movieFansDbApp.director.filters.applicable">Applicable filters</h3>
+            <div class="form-group">
+                <label class="control-label" data-translate="movieFansDbApp.director.filters.name" for="field_name">Name contains</label>
+                <input type="text" class="form-control" name="name" id="field_name" ng-model="vm.filter.name"/>
+            </div>
+            <div class="form-group">
+                <label data-translate="movieFansDbApp.director.filters.creator" for="field_creator">Created by</label>
+                <select class="form-control" id="field_creator" name="creator" ng-model="vm.filter.creator" ng-options="user as user.login for user in vm.users track by user.login">
+                    <option value=""></option>
+                </select>
             </div>
         </div>
     </div>

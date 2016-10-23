@@ -13,4 +13,10 @@ import java.util.List;
 public interface DirectorRepository extends JpaRepository<Director,Long>, CrewMemberRepository {
 
     List<CrewMember> findByImdbId(String imdbId);
+
+    List<Director> findByNameContainingAndCreatorAllIgnoreCase(String name, String creator);
+
+    List<Director> findByNameContainingIgnoreCase(String name);
+
+    List<Director> findByCreator(String creator);
 }
