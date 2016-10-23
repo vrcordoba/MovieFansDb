@@ -35,7 +35,6 @@
         <table class="jh-table table table-striped">
             <thead>
                 <tr>
-                    <th><span data-translate="global.field.id">ID</span></th>
                     <th><span data-translate="movieFansDbApp.director.imdbId">Imdb Id</span></th>
                     <th><span data-translate="movieFansDbApp.director.name">Name</span></th>
                     <th><span data-translate="movieFansDbApp.director.biography">Biography</span></th>
@@ -44,10 +43,9 @@
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="director in vm.directors track by director.id">
-                    <td><a ui-sref="director-detail({id:director.id})">{{director.id}}</a></td>
+                <tr ng-repeat="director in vm.directors | orderBy : 'name' track by director.id">
                     <td>{{director.imdbId}}</td>
-                    <td>{{director.name}}</td>
+                    <td><a ui-sref="director-detail({id:director.id})">{{director.name}}</td>
                     <td>{{director.biography}}</td>
                     <td>{{director.creator}}</td>
                     <td class="text-right">

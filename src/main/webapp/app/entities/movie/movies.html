@@ -26,7 +26,6 @@
         <table class="jh-table table table-striped">
             <thead>
                 <tr>
-                    <th><span data-translate="global.field.id">ID</span></th>
                     <th><span data-translate="movieFansDbApp.movie.imdbId">Imdb Id</span></th>
                     <th><span data-translate="movieFansDbApp.movie.title">Title</span></th>
                     <th><span data-translate="movieFansDbApp.movie.date">Date</span></th>
@@ -40,11 +39,10 @@
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="movie in vm.movies track by movie.id">
-                    <td><a ui-sref="movie-detail({id:movie.id})">{{movie.id}}</a></td>
+                <tr ng-repeat="movie in vm.movies | orderBy : 'title' track by movie.id">
                     <td>{{movie.imdbId}}</td>
-                    <td>{{movie.title}}</td>
-                        <td>{{movie.date | date:'mediumDate'}}</td>
+                    <td><a ui-sref="movie-detail({id:movie.id})">{{movie.title}}</td>
+                    <td>{{movie.date | date:'mediumDate'}}</td>
                     <td>{{movie.plot}}</td>
                     <td>{{movie.rating}}</td>
                     <td>{{movie.genre}}</td>
