@@ -7,7 +7,7 @@
 
     ReviewDialogController.$inject = ['$timeout', '$scope', 'Principal', '$stateParams', '$uibModalInstance', 'entity', 'Review', 'Movie'];
 
-    function ReviewDialogController ($timeout, $scope, Principal, $stateParams, $uibModalInstance, entity, Review, Movie, User) {
+    function ReviewDialogController ($timeout, $scope, Principal, $stateParams, $uibModalInstance, entity, Review, Movie) {
         var vm = this;
 
         vm.review = entity;

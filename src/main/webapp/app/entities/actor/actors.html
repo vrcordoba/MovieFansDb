@@ -1,31 +1,33 @@
 <div>
     <h2 data-translate="movieFansDbApp.actor.home.title">Actors</h2>
     <jhi-alert></jhi-alert>
-    <div class="container-fluid">
-        <div class="col-xs-4 no-padding-left">
+    <div class="row">
+        <div class="col-sm-4">
             <button class="btn btn-primary" ui-sref="actor.new" >
             <span class="glyphicon glyphicon-plus"></span>
                 <span  data-translate="movieFansDbApp.actor.home.createLabel">
                     Create new Actor
                 </span>
             </button>
-            <h3 data-translate="movieFansDbApp.actor.filters.applicable">Applicable filters</h3>
-            <div class = "row">
-                <div class="form-group col-xs-4 no-padding-left">
-                    <label class="control-label" data-translate="movieFansDbApp.actor.filters.name" for="field_name">Name contains</label>
-                    <input type="text" class="form-control" name="name" id="field_name" ng-model="vm.filter.name"/>
-                </div>
-                <div class="form-group col-xs-4 no-padding-left">
-                    <label class="control-label" data-translate="movieFansDbApp.actor.filters.creator" for="field_creator">Created by</label>
-                    <input type="text" class="form-control" name="creator" id="field_creator" ng-model="vm.filter.creator"/>
-                </div>
-            </div>
+        </div>
+        <div class="col-sm-4">
             <button class="btn btn-primary" type="submit" ng-click="vm.filterActors()">
                 <span class="glyphicon glyphicon-eye-open"></span>
                 <span  data-translate="movieFansDbApp.actor.home.filter">
                     Filter actors
                 </span>
             </button>
+            <h3 data-translate="movieFansDbApp.actor.filters.applicable">Applicable filters</h3>
+            <div class="form-group">
+                <label class="control-label" data-translate="movieFansDbApp.actor.filters.name" for="field_name">Name contains</label>
+                <input type="text" class="form-control" name="name" id="field_name" ng-model="vm.filter.name"/>
+            </div>
+            <div class="form-group">
+                <label data-translate="movieFansDbApp.actor.filters.creator" for="field_movie">Created by</label>
+                <select class="form-control" id="field_creator" name="creator" ng-model="vm.filter.creator" ng-options="user as user.login for user in vm.users track by user.id">
+                    <option value=""></option>
+                </select>
+            </div>
         </div>
     </div>
     <br/>
