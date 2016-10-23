@@ -4,11 +4,8 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
 import java.util.Locale;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
-
-import javax.inject.Inject;
 
 import org.springframework.web.client.RestTemplate;
 import org.vrcordoba.moviefansdb.domain.Actor;

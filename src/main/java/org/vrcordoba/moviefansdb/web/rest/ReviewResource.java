@@ -1,13 +1,13 @@
 package org.vrcordoba.moviefansdb.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
+
 import org.vrcordoba.moviefansdb.domain.Review;
 
 import org.vrcordoba.moviefansdb.repository.ReviewRepository;
 import org.vrcordoba.moviefansdb.web.rest.util.HeaderUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +16,11 @@ import org.springframework.web.bind.annotation.*;
 import javax.inject.Inject;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Locale;
+import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -78,7 +82,7 @@ public class ReviewResource {
     }
 
     /**
-     * GET  /reviews : get all the reviews.
+     * GET  /reviews : get the reviews, possibly applying filter.
      *
      * @return the ResponseEntity with status 200 (OK) and the list of reviews in body
      */
@@ -86,9 +90,46 @@ public class ReviewResource {
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public List<Review> getAllReviews() {
-        log.debug("REST request to get all Reviews");
-        List<Review> reviews = reviewRepository.findAll();
+    public List<Review> getReviews(
+            @RequestParam(required = false) String author,
+            @RequestParam(required = false) String date,
+            @RequestParam(required = false) Long movieId) {
+        List<Review> reviews;
+        if(Objects.nonNull(date)) {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+                .withLocale(Locale.US);
+            LocalDate localDate = LocalDate.parse(date, formatter);
+            if(Objects.nonNull(author) && Objects.nonNull(movieId)) {
+                log.debug("REST request to get Reviews, filtering by Date, Author and Movie");
+                reviews = reviewRepository.findByAuthorIgnoreCaseAndDateGreaterThanAndMovieId(
+                    author,
+                    localDate,
+                    movieId);
+            } else if(Objects.nonNull(author)) {
+                log.debug("REST request to get Reviews, filtering by Date and Author");
+                reviews = reviewRepository.findByAuthorIgnoreCaseAndDateGreaterThan(author, localDate);
+            } else if(Objects.nonNull(movieId)) {
+                log.debug("REST request to get Reviews, filtering by Date and Movie");
+                reviews = reviewRepository.findByDateGreaterThanAndMovieId(localDate, movieId);
+            } else {
+                log.debug("REST request to get Reviews, filtering by Date");
+                reviews = reviewRepository.findByDateGreaterThan(localDate);
+            }
+        } else {
+            if(Objects.nonNull(author) && Objects.nonNull(movieId)) {
+                log.debug("REST request to get Reviews, filtering by Author and Movie");
+                reviews = reviewRepository.findByAuthorIgnoreCaseAndMovieId(author, movieId);
+            } else if(Objects.nonNull(movieId)) {
+                log.debug("REST request to get Reviews, filtering by Movie");
+                reviews = reviewRepository.findByMovieId(movieId);
+            } else if(Objects.nonNull(author)) {
+                log.debug("REST request to get Reviews, filtering by Author");
+                reviews = reviewRepository.findByAuthorIgnoreCase(author);
+            } else {
+                log.debug("REST request to get all Reviews");
+                reviews = reviewRepository.findAll();
+            }
+        }
         return reviews;
     }
 

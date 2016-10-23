@@ -28,7 +28,14 @@
                     $translatePartialLoader.addPart('review');
                     $translatePartialLoader.addPart('global');
                     return $translate.refresh();
-                }]
+                }],
+                entity: function () {
+                    return {
+                        author: null,
+                        date: null,
+                        movie: null
+                    };
+                }
             }
         })
         .state('review-detail', {

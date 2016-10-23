@@ -10,7 +10,6 @@ import java.util.List;
 /**
  * Spring Data JPA repository for the Movie entity.
  */
-@SuppressWarnings("unused")
 public interface MovieRepository extends JpaRepository<Movie,Long> {
 
     @Query("select distinct movie from Movie movie left join fetch movie.casts")

@@ -2,12 +2,10 @@ package org.vrcordoba.moviefansdb.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import org.vrcordoba.moviefansdb.domain.Actor;
-import org.vrcordoba.moviefansdb.domain.CrewMember;
 import org.vrcordoba.moviefansdb.repository.ActorRepository;
 import org.vrcordoba.moviefansdb.web.rest.util.HeaderUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -80,7 +78,7 @@ public class ActorResource {
     }
 
     /**
-     * GET  /actors : get all the actors.
+     * GET  /actors : get actors, possibly applying filters.
      *
      * @return the ResponseEntity with status 200 (OK) and the list of actors in body
      */
@@ -88,16 +86,16 @@ public class ActorResource {
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public List<Actor> getAllActors(
+    public List<Actor> getActors(
         @RequestParam(required = false) String name,
         @RequestParam(required = false) String creator) {
         List<Actor> actors = null;
         if(Objects.nonNull(name) && Objects.nonNull(creator)) {
             log.debug("REST request to get all Actors by name and creator");
-            actors = actorRepository.findByNameContainingAndCreator(name, creator);
+            actors = actorRepository.findByNameContainingAndCreatorAllIgnoreCase(name, creator);
         } else if(Objects.nonNull(name)) {
             log.debug("REST request to get all Actors by name");
-            actors = actorRepository.findByNameContaining(name);
+            actors = actorRepository.findByNameContainingIgnoreCase(name);
         } else if(Objects.nonNull(creator)) {
             log.debug("REST request to get all Actors by creator");
             actors = actorRepository.findByCreator(creator);

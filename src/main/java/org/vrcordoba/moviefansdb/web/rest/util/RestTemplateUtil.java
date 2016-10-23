@@ -2,7 +2,6 @@ package org.vrcordoba.moviefansdb.web.rest.util;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.regex.Pattern;
 
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.AbstractHttpMessageConverter;
@@ -22,6 +21,7 @@ public class RestTemplateUtil {
         return inputString.replaceAll("\\p{Space}", "+");
     }
 
+    @SuppressWarnings("unchecked")
     public static RestTemplate createRestTemplateWithTextHtmlSupport() {
         RestTemplate template = new RestTemplate();
         List<HttpMessageConverter<?>> converters = template.getMessageConverters();

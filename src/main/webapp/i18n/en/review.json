@@ -5,7 +5,8 @@
                 "title": "Reviews",
                 "createLabel": "Create a new Review",
                 "createOrEditLabel": "Create or edit a Review",
-                "search": "Search for Review"
+                "search": "Search for Review",
+                "filter": "Filter reviews"
             },
             "created": "A new Review is created with identifier {{ param }}",
             "updated": "A Review is updated with identifier {{ param }}",
@@ -13,6 +14,13 @@
             "delete": {
                 "question": "Are you sure you want to delete Review {{ id }}?"
             },
+            "filters": {
+                "applicable": "Applicable filters",
+                "after": "After date",
+                "author": "Author",
+                "movie": "Of movie"
+            },
+            
             "detail": {
                 "title": "Review"
             },

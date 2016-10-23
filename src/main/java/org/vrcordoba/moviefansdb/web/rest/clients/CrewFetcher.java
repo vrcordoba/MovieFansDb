@@ -15,6 +15,7 @@ import org.vrcordoba.moviefansdb.web.rest.util.RestTemplateUtil;
 
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
+@SuppressWarnings("rawtypes")
 public class CrewFetcher<C extends CrewMember, R extends JpaRepository> {
 
     private final Movie movie;
@@ -49,6 +50,7 @@ public class CrewFetcher<C extends CrewMember, R extends JpaRepository> {
         return found;
     }
 
+    @SuppressWarnings("unchecked")
     private void saveFetchedCrewMemberInformation(
             final ObjectNode fetchedInformation,
             final C crewMemberToFetch,

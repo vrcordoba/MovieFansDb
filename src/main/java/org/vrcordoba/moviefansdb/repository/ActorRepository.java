@@ -13,9 +13,9 @@ public interface ActorRepository extends JpaRepository<Actor,Long>, CrewMemberRe
 
     List<CrewMember> findByImdbId(String imdbId);
 
-    List<Actor> findByNameContainingAndCreator(String name, String Creator);
+    List<Actor> findByNameContainingAndCreatorAllIgnoreCase(String name, String creator);
 
-    List<Actor> findByNameContaining(String name);
+    List<Actor> findByNameContainingIgnoreCase(String name);
 
-    List<Actor> findByCreator(String Creator);
+    List<Actor> findByCreator(String creator);
 }
