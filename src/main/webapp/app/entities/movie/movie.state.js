@@ -28,7 +28,13 @@
                     $translatePartialLoader.addPart('movie');
                     $translatePartialLoader.addPart('global');
                     return $translate.refresh();
-                }]
+                }],
+                entity: function () {
+                    return {
+                        title: null,
+                        director: null
+                    };
+                }
             }
         })
         .state('movie-detail', {

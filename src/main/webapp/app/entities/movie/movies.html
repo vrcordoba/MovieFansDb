@@ -1,23 +1,40 @@
 <div>
     <h2 data-translate="movieFansDbApp.movie.home.title">Movies</h2>
     <jhi-alert></jhi-alert>
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-xs-4 no-padding-left">
-                <button class="btn btn-primary" ui-sref="movie.new" >
-                    <span class="glyphicon glyphicon-plus"></span>
-                    <span  data-translate="movieFansDbApp.movie.home.createLabel">
-                        Create new Movie
-                    </span>
-                </button>
+    <div class="row">
+        <div class="col-sm-4">
+            <button class="btn btn-primary" ui-sref="movie.new" >
+                <span class="glyphicon glyphicon-plus"></span>
+                <span  data-translate="movieFansDbApp.movie.home.createLabel">
+                    Create new Movie
+                </span>
+            </button>
+        </div>
+        <div class="col-sm-4">
+            <button class="btn btn-primary" ui-sref="movie.fetchfrominternet" >
+                <span class="glyphicon glyphicon-plus"></span>
+                <span  data-translate="movieFansDbApp.movie.home.fetchFromInternetLabel">
+                    Fetch Movie from Internet
+                </span>
+            </button>
+        </div>
+        <div class="col-sm-4">
+            <button class="btn btn-primary" type="submit" ng-click="vm.filterMovies()">
+                <span class="glyphicon glyphicon-eye-open"></span>
+                <span  data-translate="movieFansDbApp.movie.home.filter">
+                    Filter movies
+                </span>
+            </button>
+            <h3 data-translate="movieFansDbApp.movie.filters.applicable">Applicable filters</h3>
+            <div class="form-group">
+                <label class="control-label" data-translate="movieFansDbApp.movie.filters.title" for="field_title">Title contains</label>
+                <input type="text" class="form-control" name="title" id="field_title" ng-model="vm.filter.title"/>
             </div>
-            <div class="col-xs-4 no-padding-left">
-                <button class="btn btn-primary" ui-sref="movie.fetchfrominternet" >
-                    <span class="glyphicon glyphicon-plus"></span>
-                    <span  data-translate="movieFansDbApp.movie.home.fetchFromInternetLabel">
-                        Fetch Movie from Internet
-                    </span>
-                </button>
+            <div class="form-group">
+                <label data-translate="movieFansDbApp.movie.filters.director" for="field_director">Directed by</label>
+                <select class="form-control" id="field_director" name="director" ng-model="vm.filter.director" ng-options="director as director.name for director in vm.directors | orderBy : 'name' track by director.id">
+                    <option value=""></option>
+                </select>
             </div>
         </div>
     </div>

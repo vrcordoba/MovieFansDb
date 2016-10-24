@@ -20,4 +20,11 @@ public interface MovieRepository extends JpaRepository<Movie,Long> {
 
     List<Movie> findByImdbId(String imdbId);
 
+    List<Movie> findByTitleContainingIgnoreCase(String title);
+
+    @Query("select m from Movie m where m.director.id = ?1")
+    List<Movie> findByDirectorId(Long directorId);
+
+    @Query("select m from Movie m where (locate(lower(?1), lower(m.title)) > 0) and m.director.id = ?2")
+    List<Movie> findByTitleContainingIgnoreCaseAndDirectorId(String title, Long directorId);
 }

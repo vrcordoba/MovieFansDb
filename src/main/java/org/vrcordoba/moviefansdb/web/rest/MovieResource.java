@@ -121,7 +121,7 @@ public class MovieResource {
     }
 
     /**
-     * GET  /movies : get all the movies.
+     * GET  /movies : get movies, possibly applying a filter.
      *
      * @return the ResponseEntity with status 200 (OK) and the list of movies in body
      */
@@ -129,9 +129,22 @@ public class MovieResource {
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public List<Movie> getAllMovies() {
+    public List<Movie> getMovies(
+            @RequestParam(required = false) String title,
+            @RequestParam(required = false) Long directorId) {
         log.debug("REST request to get all Movies");
-        List<Movie> movies = movieRepository.findAllWithEagerRelationships();
+        List<Movie> movies;
+        if (Objects.nonNull(title) && Objects.nonNull(directorId)) {
+            movies = movieRepository.findByTitleContainingIgnoreCaseAndDirectorId(
+                title,
+                directorId);
+        } else if (Objects.nonNull(title)) {
+            movies = movieRepository.findByTitleContainingIgnoreCase(title);
+        } else if (Objects.nonNull(directorId)) {
+            movies = movieRepository.findByDirectorId(directorId);
+        } else {
+            movies = movieRepository.findAllWithEagerRelationships();
+        }
         return movies;
     }
 
