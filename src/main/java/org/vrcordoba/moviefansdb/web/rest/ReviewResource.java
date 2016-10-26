@@ -101,7 +101,7 @@ public class ReviewResource {
             LocalDate localDate = LocalDate.parse(date, formatter);
             if(Objects.nonNull(author) && Objects.nonNull(movieId)) {
                 log.debug("REST request to get Reviews, filtering by Date, Author and Movie");
-                reviews = reviewRepository.findByAuthorIgnoreCaseAndDateGreaterThanAndMovieId(
+                reviews = reviewRepository.findByAuthorIgnoreCaseAndDateGreaterThanAndMovie_Id(
                     author,
                     localDate,
                     movieId);
@@ -110,7 +110,7 @@ public class ReviewResource {
                 reviews = reviewRepository.findByAuthorIgnoreCaseAndDateGreaterThan(author, localDate);
             } else if(Objects.nonNull(movieId)) {
                 log.debug("REST request to get Reviews, filtering by Date and Movie");
-                reviews = reviewRepository.findByDateGreaterThanAndMovieId(localDate, movieId);
+                reviews = reviewRepository.findByDateGreaterThanAndMovie_Id(localDate, movieId);
             } else {
                 log.debug("REST request to get Reviews, filtering by Date");
                 reviews = reviewRepository.findByDateGreaterThan(localDate);
@@ -118,10 +118,10 @@ public class ReviewResource {
         } else {
             if(Objects.nonNull(author) && Objects.nonNull(movieId)) {
                 log.debug("REST request to get Reviews, filtering by Author and Movie");
-                reviews = reviewRepository.findByAuthorIgnoreCaseAndMovieId(author, movieId);
+                reviews = reviewRepository.findByAuthorIgnoreCaseAndMovie_Id(author, movieId);
             } else if(Objects.nonNull(movieId)) {
                 log.debug("REST request to get Reviews, filtering by Movie");
-                reviews = reviewRepository.findByMovieId(movieId);
+                reviews = reviewRepository.findByMovie_Id(movieId);
             } else if(Objects.nonNull(author)) {
                 log.debug("REST request to get Reviews, filtering by Author");
                 reviews = reviewRepository.findByAuthorIgnoreCase(author);

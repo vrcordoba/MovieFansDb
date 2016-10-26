@@ -16,20 +16,16 @@ public interface ReviewRepository extends JpaRepository<Review,Long> {
 
     List<Review> findByDateGreaterThan(LocalDate date);
 
-    @Query("select r from Review r where r.movie.id = ?1")
-    List<Review> findByMovieId(Long movieId);
+    List<Review> findByMovie_Id(Long movieId);
 
     List<Review> findByAuthorIgnoreCaseAndDateGreaterThan(String author, LocalDate date);
 
-    @Query("select r from Review r where lower(r.author) = lower(?1) and r.movie.id = ?2")
-    List<Review> findByAuthorIgnoreCaseAndMovieId(String author, Long movieId);
+    List<Review> findByAuthorIgnoreCaseAndMovie_Id(String author, Long movieId);
 
-    @Query("select r from Review r where lower(r.author) = lower(?1) and r.date > ?2 and r.movie.id = ?3")
-    List<Review> findByAuthorIgnoreCaseAndDateGreaterThanAndMovieId(
+    List<Review> findByAuthorIgnoreCaseAndDateGreaterThanAndMovie_Id(
         String author,
         LocalDate date,
         Long movieId);
 
-    @Query("select r from Review r where r.date > ?1 and r.movie.id = ?2")
-    List<Review> findByDateGreaterThanAndMovieId(LocalDate date, Long movieId);
+    List<Review> findByDateGreaterThanAndMovie_Id(LocalDate date, Long movieId);
 }

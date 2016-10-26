@@ -144,6 +144,8 @@ public class MovieResource {
             movies = movieRepository.findByTitleContainingIgnoreCaseAndDirector_Id(
                 title,
                 directorId);
+        } else if (Objects.nonNull(actorId) && Objects.nonNull(directorId)) {
+            movies = movieRepository.findByCasts_IdAndDirector_Id(actorId, directorId);
         } else if (Objects.nonNull(title)) {
             movies = movieRepository.findByTitleContainingIgnoreCase(title);
         } else if (Objects.nonNull(actorId)) {
