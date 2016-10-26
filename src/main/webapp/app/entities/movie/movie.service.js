@@ -36,6 +36,14 @@
                     copy.date = DateUtils.convertLocalDateToServer(copy.date);
                     return angular.toJson(copy);
                 }
+            },
+            'fetch': {
+                url: 'api/movies/fetcher',
+                method: 'POST',
+                transformRequest: function (data) {
+                    var copy = angular.copy(data);
+                    return angular.toJson(copy);
+                }
             }
         });
     }
