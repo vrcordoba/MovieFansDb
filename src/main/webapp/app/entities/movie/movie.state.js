@@ -32,6 +32,7 @@
                 entity: function () {
                     return {
                         title: null,
+                        actor: null,
                         director: null
                     };
                 }

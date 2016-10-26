@@ -18,6 +18,7 @@
             "filters": {
                 "applicable": "Applicable filters",
                 "title": "Title contains",
+                "actor": "Starred by",
                 "director": "Directed by"
             },
             "detail": {

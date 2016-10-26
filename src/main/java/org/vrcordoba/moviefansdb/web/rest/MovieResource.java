@@ -131,17 +131,25 @@ public class MovieResource {
     @Timed
     public List<Movie> getMovies(
             @RequestParam(required = false) String title,
+            @RequestParam(required = false) Long actorId,
             @RequestParam(required = false) Long directorId) {
         log.debug("REST request to get all Movies");
         List<Movie> movies;
-        if (Objects.nonNull(title) && Objects.nonNull(directorId)) {
-            movies = movieRepository.findByTitleContainingIgnoreCaseAndDirectorId(
+        if (Objects.nonNull(title) && Objects.nonNull(actorId) && Objects.nonNull(directorId)) {
+            movies = movieRepository.findByTitleContainingIgnoreCaseAndCasts_IdAndDirector_Id(
+                title, actorId, directorId);
+        } else if (Objects.nonNull(title) && Objects.nonNull(actorId)) {
+            movies = movieRepository.findByTitleContainingIgnoreCaseAndCasts_Id(title, actorId);
+        } else if (Objects.nonNull(title) && Objects.nonNull(directorId)) {
+            movies = movieRepository.findByTitleContainingIgnoreCaseAndDirector_Id(
                 title,
                 directorId);
         } else if (Objects.nonNull(title)) {
             movies = movieRepository.findByTitleContainingIgnoreCase(title);
+        } else if (Objects.nonNull(actorId)) {
+            movies = movieRepository.findByCasts_Id(actorId);
         } else if (Objects.nonNull(directorId)) {
-            movies = movieRepository.findByDirectorId(directorId);
+            movies = movieRepository.findByDirector_Id(directorId);
         } else {
             movies = movieRepository.findAllWithEagerRelationships();
         }
