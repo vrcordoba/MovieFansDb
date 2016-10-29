@@ -21,7 +21,7 @@ public class CrewFetcher<C extends CrewMember, R extends JpaRepository> {
     private final Movie movie;
     private final RestTemplate restTemplate;
 
-    public static final Pattern NAME_EXTRACTOR = Pattern.compile("^(\\w+\\s+\\w+)");
+    private static final String DELETE_FROM_BIOGRAPHY = " See full bio &raquo;";
 
     public CrewFetcher(final Movie movie) {
         this.movie = movie;
@@ -56,7 +56,12 @@ public class CrewFetcher<C extends CrewMember, R extends JpaRepository> {
             final C crewMemberToFetch,
             final R repository) {
         crewMemberToFetch.setImdbId(fetchedInformation.get("data").get("id").asText());
-        crewMemberToFetch.setBiography(fetchedInformation.get("data").get("description").asText());
+        crewMemberToFetch.setBiography(
+            fetchedInformation
+                .get("data")
+                .get("description")
+                .asText()
+                .replace(DELETE_FROM_BIOGRAPHY, ""));
         crewMemberToFetch.setCreator(SecurityUtils.getCurrentUserLogin());
 
         Set<Movie> currentMovies = crewMemberToFetch.getMovies();
