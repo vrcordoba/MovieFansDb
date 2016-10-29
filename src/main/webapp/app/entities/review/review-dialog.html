@@ -37,7 +37,7 @@
 
         <div class="form-group">
             <label data-translate="movieFansDbApp.review.movie" for="field_movie">Movie</label>
-            <select class="form-control" id="field_movie" name="movie" ng-model="vm.review.movie" ng-options="movie as movie.title for movie in vm.movies track by movie.id">
+            <select class="form-control" id="field_movie" name="movie" ng-model="vm.review.movie" ng-options="movie as movie.title for movie in vm.movies | orderBy : 'title' track by movie.id">
                 <option value=""></option>
             </select>
         </div>

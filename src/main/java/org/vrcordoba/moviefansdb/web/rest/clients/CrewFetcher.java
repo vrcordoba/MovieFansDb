@@ -3,7 +3,6 @@ package org.vrcordoba.moviefansdb.web.rest.clients;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
-import java.util.regex.Pattern;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.web.client.RestTemplate;

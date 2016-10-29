@@ -75,11 +75,11 @@
 
         <div class="form-group">
             <label data-translate="movieFansDbApp.movie.cast" for="field_cast">Cast</label>
-            <select class="form-control" id="field_cast" multiple name="cast" ng-model="vm.movie.casts" ng-options="actor as actor.name for actor in vm.actors track by actor.id"></select>
+            <select class="form-control" id="field_cast" multiple name="cast" ng-model="vm.movie.casts" ng-options="actor as actor.name for actor in vm.actors | orderBy : 'name' track by actor.id"></select>
         </div>
         <div class="form-group">
             <label data-translate="movieFansDbApp.movie.director" for="field_director">Director</label>
-            <select class="form-control" id="field_director" name="director" ng-model="vm.movie.director" ng-options="director as director.name for director in vm.directors track by director.id">
+            <select class="form-control" id="field_director" name="director" ng-model="vm.movie.director" ng-options="director as director.name for director in vm.directors | orderBy : 'name' track by director.id">
                 <option value=""></option>
             </select>
         </div>

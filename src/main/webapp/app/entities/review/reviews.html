@@ -20,7 +20,7 @@
             <h3 data-translate="movieFansDbApp.review.filters.applicable">Applicable filters</h3>
             <div class="form-group">
                 <label data-translate="movieFansDbApp.review.filters.author" for="field_author">Author</label>
-                <select class="form-control" id="field_author" name="author" ng-model="vm.filter.author" ng-options="user as user.login for user in vm.users track by user.id">
+                <select class="form-control" id="field_author" name="author" ng-model="vm.filter.author" ng-options="user as user.login for user in vm.users | orderBy : 'login' track by user.login">
                     <option value=""></option>
                 </select>
             </div>
@@ -35,7 +35,7 @@
             </div>
             <div class="form-group">
                 <label data-translate="movieFansDbApp.review.filters.movie" for="field_movie">Of movie</label>
-                <select class="form-control" id="field_movie" name="movie" ng-model="vm.filter.movie" ng-options="movie as movie.title for movie in vm.movies | orderBy : 'title' track by movie.title">
+                <select class="form-control" id="field_movie" name="movie" ng-model="vm.filter.movie" ng-options="movie as movie.title for movie in vm.movies | orderBy : 'title' track by movie.id">
                     <option value=""></option>
                 </select>
             </div>
