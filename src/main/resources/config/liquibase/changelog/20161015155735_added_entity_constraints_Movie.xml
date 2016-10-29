@@ -7,7 +7,7 @@
         Added the constraints for entity Movie.
     -->
     <changeSet id="20161015155735-2" author="jhipster">
-        
+
         <addForeignKeyConstraint baseColumnNames="movies_id"
                                  baseTableName="movie_cast"
                                  constraintName="fk_movie_cast_movies_id"
@@ -18,18 +18,12 @@
                                  constraintName="fk_movie_cast_casts_id"
                                  referencedColumnNames="id"
                                  referencedTableName="actor"/>
-        
+
         <addForeignKeyConstraint baseColumnNames="director_id"
                                  baseTableName="movie"
                                  constraintName="fk_movie_director_id"
                                  referencedColumnNames="id"
                                  referencedTableName="director"/>
-
-        <addForeignKeyConstraint baseColumnNames="creator_id"
-                                 baseTableName="movie"
-                                 constraintName="fk_movie_creator_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="jhi_user"/>
 
     </changeSet>
 </databaseChangeLog>

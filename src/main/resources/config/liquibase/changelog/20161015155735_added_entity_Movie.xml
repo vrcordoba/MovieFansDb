@@ -24,32 +24,32 @@
             <column name="imdb_id" type="varchar(255)">
                 <constraints nullable="false" />
             </column>
-            
+
             <column name="title" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
-            
+
             <column name="date" type="date">
                 <constraints nullable="true" />
             </column>
-            
-            <column name="plot" type="varchar(255)">
+
+            <column name="plot" type="varchar(5000)">
                 <constraints nullable="true" />
             </column>
-            
+
             <column name="rating" type="${floatType}">
                 <constraints nullable="true" />
             </column>
-            
+
             <column name="genre" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
-            
+
             <column name="director_id" type="bigint">
                 <constraints nullable="true" />
             </column>
-            <column name="creator_id" type="bigint">
-                <constraints unique="true" nullable="true" />
+            <column name="creator" type="varchar(255)">
+                <constraints nullable="true" />
             </column>
             <!-- jhipster-needle-liquibase-add-column - Jhipster will add columns here, do not remove-->
         </createTable>

@@ -29,7 +29,7 @@
                 <constraints nullable="true" />
             </column>
             
-            <column name="content" type="varchar(255)">
+            <column name="content" type="varchar(5000)">
                 <constraints nullable="true" />
             </column>
             
@@ -37,12 +37,12 @@
                 <constraints nullable="true" />
             </column>
 
-            <column name="author_id" type="bigint">
+            <column name="author" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
 
             <!-- jhipster-needle-liquibase-add-column - Jhipster will add columns here, do not remove-->
         </createTable>
-        
+
     </changeSet>
 </databaseChangeLog>

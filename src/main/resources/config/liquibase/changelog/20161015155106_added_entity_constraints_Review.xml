@@ -7,18 +7,12 @@
         Added the constraints for entity Review.
     -->
     <changeSet id="20161015155106-2" author="jhipster">
-        
+
         <addForeignKeyConstraint baseColumnNames="movie_id"
                                  baseTableName="review"
                                  constraintName="fk_review_movie_id"
                                  referencedColumnNames="id"
                                  referencedTableName="movie"/>
-
-        <addForeignKeyConstraint baseColumnNames="author_id"
-                                 baseTableName="review"
-                                 constraintName="fk_review_author_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="jhi_user"/>
 
     </changeSet>
 </databaseChangeLog>

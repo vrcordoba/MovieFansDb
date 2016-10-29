@@ -11,16 +11,6 @@
     <include file="config/liquibase/changelog/20161015155735_added_entity_Movie.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
     <include file="config/liquibase/changelog/20161015155106_added_entity_constraints_Review.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20161015155312_added_entity_constraints_Director.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20161015155443_added_entity_constraints_Actor.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20161015155735_added_entity_constraints_Movie.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
-    <include file="config/liquibase/changelog/20161017222100_alter_entity_Movie.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20161017223600_alter_entity_Review.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20161018194500_alter_entity_Movie.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20161018211400_alter_entity_Review.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20161019212200_alter_entity_Actor.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20161019212300_alter_entity_Director.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20161019215300_alter_entity_Actor.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20161019215400_alter_entity_Director.xml" relativeToChangelogFile="false"/>
 </databaseChangeLog>

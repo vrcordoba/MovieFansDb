@@ -29,14 +29,14 @@
                 <constraints nullable="true" />
             </column>
             
-            <column name="biography" type="varchar(255)">
+            <column name="biography" type="varchar(5000)">
                 <constraints nullable="true" />
             </column>
-                        <column name="creator_id" type="bigint">
-                <constraints unique="true" nullable="true" />
+            <column name="creator" type="varchar(255)">
+                <constraints nullable="true" />
             </column>
             <!-- jhipster-needle-liquibase-add-column - Jhipster will add columns here, do not remove-->
         </createTable>
-        
+
     </changeSet>
 </databaseChangeLog>
