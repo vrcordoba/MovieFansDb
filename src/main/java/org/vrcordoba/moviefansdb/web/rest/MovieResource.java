@@ -133,26 +133,33 @@ public class MovieResource {
             @RequestParam(required = false) String title,
             @RequestParam(required = false) Long actorId,
             @RequestParam(required = false) Long directorId) {
-        log.debug("REST request to get all Movies");
         List<Movie> movies;
         if (Objects.nonNull(title) && Objects.nonNull(actorId) && Objects.nonNull(directorId)) {
+            log.debug("REST request to get all Movies by title, actorId and directorId");
             movies = movieRepository.findByTitleContainingIgnoreCaseAndCasts_IdAndDirector_Id(
                 title, actorId, directorId);
         } else if (Objects.nonNull(title) && Objects.nonNull(actorId)) {
+            log.debug("REST request to get all Movies by title and actorId");
             movies = movieRepository.findByTitleContainingIgnoreCaseAndCasts_Id(title, actorId);
         } else if (Objects.nonNull(title) && Objects.nonNull(directorId)) {
+           log.debug("REST request to get all Movies by title and directorId");
             movies = movieRepository.findByTitleContainingIgnoreCaseAndDirector_Id(
                 title,
                 directorId);
         } else if (Objects.nonNull(actorId) && Objects.nonNull(directorId)) {
+            log.debug("REST request to get all Movies by actorId and directorId");
             movies = movieRepository.findByCasts_IdAndDirector_Id(actorId, directorId);
         } else if (Objects.nonNull(title)) {
+            log.debug("REST request to get all Movies by title");
             movies = movieRepository.findByTitleContainingIgnoreCase(title);
         } else if (Objects.nonNull(actorId)) {
+            log.debug("REST request to get all Movies by actorId");
             movies = movieRepository.findByCasts_Id(actorId);
         } else if (Objects.nonNull(directorId)) {
+            log.debug("REST request to get all Movies by directorId");
             movies = movieRepository.findByDirector_Id(directorId);
         } else {
+            log.debug("REST request to get all Movies");
             movies = movieRepository.findAllWithEagerRelationships();
         }
         return movies;

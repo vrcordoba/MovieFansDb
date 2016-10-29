@@ -20,18 +20,29 @@ public interface MovieRepository extends JpaRepository<Movie,Long> {
 
     List<Movie> findByImdbId(String imdbId);
 
+    @Query("select distinct m from Movie m left join fetch m.casts "
+        + "where (locate(lower(?1), lower(m.title)) > 0)")
     List<Movie> findByTitleContainingIgnoreCase(String title);
 
+    @Query("select m from Movie m left join fetch m.casts c where c.id = ?1")
     List<Movie> findByCasts_Id(Long actorId);
 
+    @Query("select distinct m from Movie m left join fetch m.casts where m.director.id =?1")
     List<Movie> findByDirector_Id(Long directorId);
 
+    @Query("select distinct m from Movie m left join fetch m.casts "
+        + "where (locate(lower(?1), lower(m.title)) > 0) and m.director.id =?2")
     List<Movie> findByTitleContainingIgnoreCaseAndDirector_Id(String title, Long directorId);
 
+    @Query("select m from Movie m left join fetch m.casts c "
+        + "where (locate(lower(?1), lower(m.title)) > 0) and c.id = ?2")
     List<Movie> findByTitleContainingIgnoreCaseAndCasts_Id(String title, Long actorId);
 
+    @Query("select m from Movie m left join fetch m.casts c where c.id = ?1 and m.director.id = ?2")
     List<Movie> findByCasts_IdAndDirector_Id(Long actorId, Long directorId);
 
+    @Query("select m from Movie m left join fetch m.casts c "
+        + "where (locate(lower(?1), lower(m.title)) > 0) and c.id = ?2 and m.director.id = ?3")
     List<Movie> findByTitleContainingIgnoreCaseAndCasts_IdAndDirector_Id(
         String title,
         Long actorId,
